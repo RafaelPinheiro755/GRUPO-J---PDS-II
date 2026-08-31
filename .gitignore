@@ -1,0 +1,17 @@
+# Saida da compilacao
+build/*
+!build/.gitkeep
+
+# Arquivos de cobertura
+*.gcno
+*.gcda
+*.gcov
+
+# Documentacao gerada
+docs/html/
+docs/latex/
+
+# Binarios
+*.o
+*.exe
+*.out
