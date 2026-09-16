@@ -7,6 +7,8 @@ Critérios de aceitação:
 
 -Nome e e-mail são obrigatórios.
 
+-O perfil deve ser salvo em arquivo de texto após o cadastro.
+
 -Foto de perfil é opcional.
 
 -Os dados ficam salvos e associados a esse usuário em todos os grupos dele.
@@ -52,6 +54,8 @@ Critérios de aceitação:
 -Cada comentário tem autor, texto e data/hora.
 
 -O texto do comentário tem um tamanho máximo definido.
+
+-O texto do comentário deve possuir no máximo 280 caracteres.
 
 -Os comentários aparecem em ordem cronológica junto ao post.
 
