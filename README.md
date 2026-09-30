@@ -1,4 +1,4 @@
-# Conecta — mini rede social
+# Conecta — rede social por grupos
 
 Projeto Final da disciplina **Programação e Desenvolvimento de Software II (PDS II)**
 — UFMG, 2º semestre de 2026. **Grupo J**.
@@ -15,23 +15,24 @@ Projeto Final da disciplina **Programação e Desenvolvimento de Software II (PD
 
 ## Tema
 
-**Mini rede social.** Um sistema de terminal, em C++11, que modela as interações
-entre usuários e organiza os conteúdos publicados em uma timeline.
+**Rede social por grupos.** Um sistema de terminal, em C++11, em que os
+usuários se organizam em grupos (públicos ou privados) e publicam
+micro-atualizações visíveis apenas para os membros de cada grupo, em vez de
+um perfil aberto com um feed geral.
 
-Funcionalidades previstas: gestão de perfis, publicações de tipos diferentes
-(texto, vídeo e imagem), listagem em timeline, curtidas e comentários, lista de
-amigos e relatórios da rede, com os dados guardados em arquivos de texto.
+Funcionalidades previstas: criação e participação em grupos, publicação de
+posts curtos, curtidas e comentários, feed pessoal consolidando os grupos do
+usuário, gestão de membros (promoção/remoção por administradores), com os
+dados guardados em arquivos de texto.
 
 ## Motivação
 
-Uma rede social parece simples de fora, mas concentra um problema clássico de
-modelagem: conteúdos de naturezas diferentes precisam conviver na mesma lista,
-ser exibidos lado a lado e receber as mesmas interações, sem que o restante do
-sistema precise perguntar de que tipo é cada um. É um domínio conhecido por todo
-mundo do grupo, o que deixa a discussão de requisitos mais rápida, e ao mesmo
-tempo exercita de forma natural os conceitos centrais da disciplina: herança e
-polimorfismo na hierarquia de publicações, encapsulamento nas regras que não
-podem ser burladas de fora, e tratamento de exceções na leitura dos arquivos.
+A escolha do tema veio da vontade de explorar, na prática, conceitos de
+Programação Orientada a Objetos como associação entre classes,
+encapsulamento e composição — presentes naturalmente na relação entre
+usuários, grupos, posts e comentários — além de oferecer um domínio rico o
+suficiente para justificar testes automatizados, tratamento de exceções e
+persistência de dados em arquivo, como exigido pela disciplina.
 
 ## Estrutura do repositório
 
