@@ -3,41 +3,70 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
-struct Usuario {
+class Grupo;      // forward declaration (evita include circular)
+class Membresia;  // forward declaration
+
+/**
+ * @class Usuario
+ * @brief Representa um usuário da rede social.
+ *
+ * Armazena os dados de perfil e mantém a lista de grupos dos quais o
+ * usuário participa, além dos convites pendentes recebidos.
+ *
+ * Colaboradores: Grupo, Membresia
+ */
+class Usuario {
 private:
-    std::string nome;
-    std::string email;
-    std::string foto; // caminho do arquivo, pode ficar vazio
+    std::string nome_;
+    std::string email_;
+    std::string foto_; ///< Caminho do arquivo de foto (opcional)
 
-    // por enquanto guardamos só o NOME dos grupos, não o objeto Grupo de verdade
-    std::vector<std::string> nomesDosGrupos;
-    std::vector<std::string> convitesPendentes;
+    std::vector<std::shared_ptr<Grupo>> grupos_;
+    std::vector<std::string> convitesPendentes_; ///< Nomes dos grupos que convidaram o usuário
 
 public:
-    /// Cria um novo usuário com nome e e-mail.
-    Usuario(std::string nome, std::string email);
+    /**
+     * @brief Constrói um novo usuário.
+     * @param nome Nome do usuário (obrigatório).
+     * @param email E-mail do usuário (obrigatório).
+     * @param foto Caminho do arquivo de foto de perfil (opcional).
+     */
+    Usuario(const std::string& nome, const std::string& email, const std::string& foto = "");
 
-    /// Retorna o nome do usuário.
+    /// @brief Retorna o nome do usuário.
     std::string getNome() const;
 
-    /// Retorna o e-mail do usuário.
+    /// @brief Retorna o e-mail do usuário.
     std::string getEmail() const;
 
-    /// Adiciona o nome de um grupo à lista de grupos do usuário.
-    void entrarGrupo(std::string nomeGrupo);
+    /// @brief Retorna o caminho da foto de perfil.
+    std::string getFoto() const;
 
-    /// Remove o nome de um grupo da lista de grupos do usuário.
-    void sairGrupo(std::string nomeGrupo);
+    /**
+     * @brief Adiciona o usuário à lista de membros de um grupo.
+     * @param grupo Ponteiro compartilhado para o grupo a ser ingressado.
+     */
+    void entrarGrupo(const std::shared_ptr<Grupo>& grupo);
 
-    /// Retorna a lista de nomes dos grupos do usuário.
-    std::vector<std::string> getGrupos() const;
+    /**
+     * @brief Remove o usuário da lista de membros de um grupo.
+     * @param grupo Ponteiro compartilhado para o grupo a ser deixado.
+     */
+    void sairGrupo(const std::shared_ptr<Grupo>& grupo);
 
-    /// Registra um convite pendente vindo de um grupo.
-    void receberConvite(std::string nomeGrupo);
+    /// @brief Retorna a lista de grupos dos quais o usuário participa.
+    std::vector<std::shared_ptr<Grupo>> getGrupos() const;
 
-    /// Retorna a lista de convites pendentes.
-    std::vector<std::string> getConvites() const;
+    /**
+     * @brief Registra um convite pendente para um grupo.
+     * @param nomeGrupo Nome do grupo que enviou o convite.
+     */
+    void receberConvite(const std::string& nomeGrupo);
+
+    /// @brief Retorna a lista de convites pendentes.
+    std::vector<std::string> getConvitesPendentes() const;
 };
 
-#endif
+#endif // USUARIO_HPP
