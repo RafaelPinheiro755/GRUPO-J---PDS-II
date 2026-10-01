@@ -2,25 +2,44 @@
 #define COMENTARIO_HPP
 
 #include <string>
+#include <memory>
 
-struct Comentario {
+class Usuario;
+class Post;
+
+/**
+ @class Comentario
+ @brief Representa um comentário feito por um usuário em um post.
+ Colaboradores: Usuario, Post
+ */
+class Comentario {
+public:
+    static const std::size_t TAMANHO_MAXIMO_TEXTO = 280;
+
 private:
-    std::string autor;
-    std::string texto;
-    std::string dataHora;
+    std::shared_ptr<Usuario> autor_;
+    std::string texto_;
+    std::string dataHora_;
 
 public:
-    /// Cria um novo comentário com autor, texto e data/hora.
-    Comentario(std::string autor, std::string texto, std::string dataHora);
+    /**
+    @brief Constrói um novo comentário.
+    @param autor Usuário que fez o comentário.
+    @param texto Conteúdo do comentário (até 280 caracteres).
+    @param dataHora Data e hora de criação, gerada automaticamente.
+     */
+    Comentario(const std::shared_ptr<Usuario>& autor,
+               const std::string& texto,
+               const std::string& dataHora);
 
-    /// Retorna o nome do autor do comentário.
-    std::string getAutor() const;
+    /// @brief Retorna o autor do comentário.
+    std::shared_ptr<Usuario> getAutor() const;
 
-    /// Retorna o texto do comentário.
+    /// @brief Retorna o texto do comentário.
     std::string getTexto() const;
 
-    /// Retorna a data/hora do comentário.
+    /// @brief Retorna a data/hora do comentário.
     std::string getDataHora() const;
 };
 
-#endif
+#endif // COMENTARIO_HPP
