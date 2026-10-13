@@ -1,0 +1,21 @@
+# Configuração do Doxygen - Projeto Final de PDS II, Grupo J
+# Gera a documentação em docs/html com: make docs
+# Opções que não aparecem aqui ficam no valor padrão do Doxygen.
+
+PROJECT_NAME           = "Conecta"
+PROJECT_BRIEF          = "Rede social por grupos - PDS II, Grupo J"
+OUTPUT_LANGUAGE        = Brazilian
+OUTPUT_DIRECTORY       = docs
+
+INPUT                  = README.md include src
+INPUT_ENCODING         = UTF-8
+FILE_PATTERNS          = *.hpp *.cpp *.md
+RECURSIVE              = YES
+USE_MDFILE_AS_MAINPAGE = README.md
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
