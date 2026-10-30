@@ -31,3 +31,21 @@ TEST_CASE("Comentario: recusa texto com mais de 280 caracteres") {
     CHECK_THROWS_AS(Comentario(bruno, std::string(281, 'a'), "2026-10-01 09:05"),
                     std::invalid_argument);
 }
+
+TEST_CASE("Comentario: recusa texto vazio") {
+    auto bruno = std::make_shared<Usuario>("Bruno", "bruno@email.com");
+
+    CHECK_THROWS_AS(Comentario(bruno, "", "2026-10-01 09:05"), std::invalid_argument);
+    CHECK_THROWS_AS(Comentario(bruno, "  ", "2026-10-01 09:05"), std::invalid_argument);
+}
+
+TEST_CASE("Comentario: recusa data/hora fora do formato") {
+    auto bruno = std::make_shared<Usuario>("Bruno", "bruno@email.com");
+
+    CHECK_THROWS_AS(Comentario(bruno, "Eu vou", ""), std::invalid_argument);
+    CHECK_THROWS_AS(Comentario(bruno, "Eu vou", "2026-10-01"), std::invalid_argument);
+}
+
+TEST_CASE("Comentario: precisa de um autor") {
+    CHECK_THROWS_AS(Comentario(nullptr, "Eu vou", "2026-10-01 09:05"), std::invalid_argument);
+}

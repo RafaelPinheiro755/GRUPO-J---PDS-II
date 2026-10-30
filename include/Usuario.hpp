@@ -32,6 +32,8 @@ public:
      * @param nome Nome do usuário (obrigatório).
      * @param email E-mail do usuário (obrigatório).
      * @param foto Caminho do arquivo de foto de perfil (opcional).
+     * @throws std::invalid_argument se o nome estiver vazio ou se o e-mail
+     *         estiver vazio ou fora do formato nome@dominio.algo.
      */
     Usuario(const std::string& nome, const std::string& email, const std::string& foto = "");
 

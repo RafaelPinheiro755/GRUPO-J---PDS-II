@@ -37,8 +37,11 @@ public:
      * @brief Constrói um novo post.
      * @param autor Usuário que publicou o post.
      * @param grupo Grupo em que o post foi publicado.
-     * @param texto Conteúdo do post (até 280 caracteres).
-     * @param dataHora Data e hora de criação, gerada automaticamente.
+     * @param texto Conteúdo do post (de 1 a 280 caracteres).
+     * @param dataHora Data e hora de criação, no formato "AAAA-MM-DD HH:MM".
+     * @throws std::invalid_argument se faltar autor ou grupo, se o texto
+     *         estiver vazio ou passar de 280 caracteres, ou se a data/hora
+     *         estiver fora do formato.
      */
     Post(const std::shared_ptr<Usuario>& autor,
          const std::shared_ptr<Grupo>& grupo,

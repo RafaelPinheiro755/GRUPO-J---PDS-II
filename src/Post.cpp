@@ -6,6 +6,7 @@
 #include "Comentario.hpp"
 #include "Grupo.hpp"
 #include "Usuario.hpp"
+#include "Validacao.hpp"
 
 // Definição da constante estática (necessária em C++11; veja Comentario.cpp).
 const std::size_t Post::TAMANHO_MAXIMO_TEXTO;
@@ -21,8 +22,16 @@ Post::Post(const std::shared_ptr<Usuario>& autor,
     if (!grupo) {
         throw std::invalid_argument("O post precisa de um grupo.");
     }
+    if (Validacao::textoEmBranco(texto_)) {
+        throw std::invalid_argument("O texto do post nao pode ficar vazio.");
+    }
     if (texto_.size() > TAMANHO_MAXIMO_TEXTO) {
         throw std::invalid_argument("O post passa do tamanho maximo.");
+    }
+    // O Feed ordena os posts comparando esta data como texto, então ela
+    // precisa estar sempre no formato "AAAA-MM-DD HH:MM".
+    if (!Validacao::dataHoraValida(dataHora_)) {
+        throw std::invalid_argument("A data/hora do post deve estar no formato AAAA-MM-DD HH:MM.");
     }
 }
 

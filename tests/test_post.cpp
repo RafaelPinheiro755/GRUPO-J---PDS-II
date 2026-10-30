@@ -29,6 +29,23 @@ TEST_CASE("Post: o texto tem no máximo 280 caracteres") {
                     std::invalid_argument);
 }
 
+TEST_CASE("Post: o texto não pode ficar vazio") {
+    auto ana = std::make_shared<Usuario>("Ana", "ana@email.com");
+    auto futebol = std::make_shared<Grupo>("Futebol", Grupo::Tipo::PUBLICO);
+
+    CHECK_THROWS_AS(Post(ana, futebol, "", "2026-10-01 09:00"), std::invalid_argument);
+    CHECK_THROWS_AS(Post(ana, futebol, "   ", "2026-10-01 09:00"), std::invalid_argument);
+}
+
+TEST_CASE("Post: a data/hora precisa estar no formato AAAA-MM-DD HH:MM") {
+    auto ana = std::make_shared<Usuario>("Ana", "ana@email.com");
+    auto futebol = std::make_shared<Grupo>("Futebol", Grupo::Tipo::PUBLICO);
+
+    CHECK_THROWS_AS(Post(ana, futebol, "Jogo sábado?", "qualquer coisa"), std::invalid_argument);
+    CHECK_THROWS_AS(Post(ana, futebol, "Jogo sábado?", "01/10/2026 09:00"), std::invalid_argument);
+    CHECK_THROWS_AS(Post(ana, futebol, "Jogo sábado?", "2026-10-01 25:00"), std::invalid_argument);
+}
+
 TEST_CASE("Post: começa sem curtidas e sem comentários") {
     auto ana = std::make_shared<Usuario>("Ana", "ana@email.com");
     auto futebol = std::make_shared<Grupo>("Futebol", Grupo::Tipo::PUBLICO);

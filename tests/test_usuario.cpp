@@ -22,6 +22,13 @@ TEST_CASE("Usuario: a foto de perfil é opcional") {
 TEST_CASE("Usuario: nome e e-mail são obrigatórios") {
     CHECK_THROWS_AS(Usuario("", "ana@email.com"), std::invalid_argument);
     CHECK_THROWS_AS(Usuario("Ana", ""), std::invalid_argument);
+    CHECK_THROWS_AS(Usuario("   ", "ana@email.com"), std::invalid_argument);
+}
+
+TEST_CASE("Usuario: recusa e-mail fora do formato") {
+    CHECK_THROWS_AS(Usuario("Ana", "nao-e-email"), std::invalid_argument);
+    CHECK_THROWS_AS(Usuario("Ana", "ana@email"), std::invalid_argument);
+    CHECK_THROWS_AS(Usuario("Ana", "ana@@email.com"), std::invalid_argument);
 }
 
 TEST_CASE("Usuario: começa sem grupos e sem convites") {

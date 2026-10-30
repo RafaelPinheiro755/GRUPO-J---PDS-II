@@ -26,8 +26,11 @@ public:
     /**
      * @brief Constrói um novo comentário.
      * @param autor Usuário que fez o comentário.
-     * @param texto Conteúdo do comentário (até 280 caracteres).
-     * @param dataHora Data e hora de criação, gerada automaticamente.
+     * @param texto Conteúdo do comentário (de 1 a 280 caracteres).
+     * @param dataHora Data e hora de criação, no formato "AAAA-MM-DD HH:MM".
+     * @throws std::invalid_argument se faltar o autor, se o texto estiver
+     *         vazio ou passar de 280 caracteres, ou se a data/hora estiver
+     *         fora do formato.
      */
     Comentario(const std::shared_ptr<Usuario>& autor,
                const std::string& texto,

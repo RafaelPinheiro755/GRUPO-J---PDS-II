@@ -3,17 +3,22 @@
 #include <algorithm>  // std::find, std::remove
 #include <stdexcept>  // std::invalid_argument
 
+#include "Validacao.hpp"
+
 // Aqui não precisamos de #include "Grupo.hpp": só guardamos ponteiros para
 // Grupo, nunca chamamos métodos dele. Se um dia chamarmos, inclui-se aqui.
 
 Usuario::Usuario(const std::string& nome, const std::string& email, const std::string& foto)
     : nome_(nome), email_(email), foto_(foto) {
     // Regra da User Story 1: nome e e-mail são obrigatórios.
-    if (nome_.empty()) {
+    if (Validacao::textoEmBranco(nome_)) {
         throw std::invalid_argument("O nome do usuario e obrigatorio.");
     }
     if (email_.empty()) {
         throw std::invalid_argument("O e-mail do usuario e obrigatorio.");
+    }
+    if (!Validacao::emailValido(email_)) {
+        throw std::invalid_argument("O e-mail do usuario e invalido.");
     }
 }
 
