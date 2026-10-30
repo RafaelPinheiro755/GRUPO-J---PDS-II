@@ -52,6 +52,8 @@ public:
     /**
      * @brief Adiciona um novo membro ao grupo.
      * @param membresia Registro de membresia (usuário + papel) a adicionar.
+     * @throws std::invalid_argument se a membresia for nula, for de outro
+     *         grupo ou se o usuário já for membro deste grupo.
      */
     void adicionarMembro(const std::shared_ptr<Membresia>& membresia);
 

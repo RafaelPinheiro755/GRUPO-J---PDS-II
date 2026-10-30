@@ -26,6 +26,16 @@ void Grupo::adicionarMembro(const std::shared_ptr<Membresia>& membresia) {
     if (!membresia) {
         throw std::invalid_argument("Membresia invalida.");
     }
+    // A membresia precisa ser deste grupo, e não de outro.
+    if (membresia->getGrupo().get() != this) {
+        throw std::invalid_argument("A membresia e de outro grupo.");
+    }
+    // Cada usuário entra uma vez só no grupo.
+    for (const auto& membro : membros_) {
+        if (membro->getUsuario() == membresia->getUsuario()) {
+            throw std::invalid_argument("O usuario ja e membro do grupo.");
+        }
+    }
     membros_.push_back(membresia);
 }
 

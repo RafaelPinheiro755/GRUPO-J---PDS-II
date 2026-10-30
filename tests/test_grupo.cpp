@@ -49,6 +49,36 @@ TEST_CASE("Grupo: adiciona membros") {
     CHECK(futebol->getMembros()[1] == mBruno);
 }
 
+TEST_CASE("Grupo: o mesmo usuário não entra duas vezes") {
+    auto futebol = std::make_shared<Grupo>("Futebol", Grupo::Tipo::PUBLICO);
+    auto ana = std::make_shared<Usuario>("Ana", "ana@email.com");
+    auto mAna = std::make_shared<Membresia>(ana, futebol, Membresia::Papel::MEMBRO, "2026-10-01");
+    auto mAnaDeNovo = std::make_shared<Membresia>(ana, futebol, Membresia::Papel::ADMINISTRADOR, "2026-10-05");
+    futebol->adicionarMembro(mAna);
+
+    CHECK_THROWS_AS(futebol->adicionarMembro(mAna), std::invalid_argument);
+    CHECK_THROWS_AS(futebol->adicionarMembro(mAnaDeNovo), std::invalid_argument);
+
+    REQUIRE(futebol->getMembros().size() == 1);
+    CHECK(futebol->getMembros()[0] == mAna);
+}
+
+TEST_CASE("Grupo: recusa membresia de outro grupo") {
+    auto futebol = std::make_shared<Grupo>("Futebol", Grupo::Tipo::PUBLICO);
+    auto leitura = std::make_shared<Grupo>("Leitura", Grupo::Tipo::PRIVADO);
+    auto ana = std::make_shared<Usuario>("Ana", "ana@email.com");
+    auto mLeitura = std::make_shared<Membresia>(ana, leitura, Membresia::Papel::MEMBRO, "2026-10-01");
+
+    CHECK_THROWS_AS(futebol->adicionarMembro(mLeitura), std::invalid_argument);
+    CHECK(futebol->getMembros().empty());
+}
+
+TEST_CASE("Grupo: recusa membresia nula") {
+    auto futebol = std::make_shared<Grupo>("Futebol", Grupo::Tipo::PUBLICO);
+
+    CHECK_THROWS_AS(futebol->adicionarMembro(nullptr), std::invalid_argument);
+}
+
 TEST_CASE("Grupo: adiciona posts na ordem em que foram publicados") {
     auto futebol = std::make_shared<Grupo>("Futebol", Grupo::Tipo::PUBLICO);
     auto ana = std::make_shared<Usuario>("Ana", "ana@email.com");
